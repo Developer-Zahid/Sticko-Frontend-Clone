@@ -1,0 +1,241 @@
+/* Header Section Style */
+.header{
+	position: absolute;
+	top: 0;
+	z-index: 9;
+	width: 100%;
+	background-color: $color-white;
+	@extend %transition;
+	.navbar{
+		@include min-desktop{
+			padding-top: toRem(25);
+			padding-bottom: toRem(25);
+		}
+		&-brand__image{
+			max-width: 100%;
+			max-height: 30px;
+		}
+		&-toggler{
+			font-size: toRem(38);
+			color: $color-dark;
+			z-index: 8;
+			@extend %transition;
+			&[aria-expanded="true"],
+			&:hover{
+				color: $color-primary;
+			}
+		}
+		&-collapse{
+			@include desktop{
+				position: fixed;
+				top: 0;
+				left: 0;
+				transform: translateX(-100%);
+				width: 100%;
+				max-width: toRem(300);
+				height: 100vh;
+				background-color: #222529;
+				transition: transform ease-in-out .3s;
+				&.show{
+					transform: translateX(0);
+				}
+				.navbar-nav{
+					width: 100%;
+					margin-top: toRem(20);
+					.nav-item{
+						margin: 0.3rem 0.6rem;
+					}
+				}
+			}
+			@include tablet{
+				width: 100%;
+			}
+		}
+		.nav{
+			&-item{
+				&:not(:last-child){
+					@include desktop{
+						border-bottom: 1px solid #2e3237;
+					}
+				}
+				.dropdown{
+					&-toggle{
+						@include min-desktop{
+							&::after{
+								display: none;
+							}
+						}
+					}
+					&-menu{
+						background-color: $color-white;
+						padding: toRem(15);
+						border: 0;
+						@extend %transition;
+						@include min-desktop{
+							display: block;
+							transform: translateY(40%);
+							opacity: 0;
+							visibility: hidden;
+							box-shadow: 0 2px 35px rgba(0,0,0,0.1);
+							max-width: max-content;
+						}
+					}
+					&-item{
+						&:not(:last-child){
+							margin-bottom: toRem(5);
+						}
+						border-radius: inherit;
+						color: $color-dark;
+						@extend %transition;
+						&.active,
+						&:active,
+						&:hover,
+						&:focus{
+							color: $color-primary;
+							background-color: unset;
+						}
+					}
+				}
+				&.dropdown{
+					@include min-desktop{
+						&::before{
+							content: "";
+							position: absolute;
+							left: 0;
+							bottom: 0;
+							transform: translateY(100%);
+							width: 100%;
+							height: 100%;
+							cursor: pointer;
+							pointer-events: none;
+						}
+						&:hover,
+						&:focus{
+							&::before{
+								pointer-events: all;
+							}
+							.dropdown-menu{
+								transform: translateY(0);
+								opacity: 1;
+								visibility: visible;
+							}
+						}
+					}
+					&:hover,
+					&:focus{
+						.nav-link{
+							color: $color-primary;
+						}
+					}
+				}
+			}
+			&-link{
+				color: $color-dark;
+				@include desktop{
+					color: $color-light;
+				}
+				font-size: toRem(14);
+				font-weight: 600;
+				font-family: $font-primary;
+				text-transform: capitalize;
+				letter-spacing: 0.007em;
+				padding-left: toRem(18);
+				padding-right: toRem(18);
+				@extend %transition;
+				&.active,
+				&:hover,
+				&:focus-visible{
+					color: $color-primary;
+				}
+				&:focus,
+				&[aria-expanded="true"]{
+					& ~ .dropdown-menu{
+						@include min-desktop{
+							transform: translateY(0);
+							opacity: 1;
+							visibility: visible;
+						}
+					}
+				}
+			}
+			&-icon{
+				color: $color-dark;
+				display: inline-block;
+				font-size: toRem(20);
+				padding: toRem(5);
+				background-color: transparent;
+				border: 0;
+				line-height: 1;
+				@include desktop {
+					color: $color-light;
+					width: 100%;
+					text-align: left;
+				}
+				@extend %transition;
+				&:hover,
+				&:focus
+				{
+					color: $color-primary;
+				}
+				&:focus,
+				&[aria-expanded="true"]{
+					& ~ .dropdown-menu{
+						@include min-desktop{
+							transform: translateY(0);
+							opacity: 1;
+							visibility: visible;
+						}
+					}
+				}
+			}
+		}
+		&-nav--icon{
+			.nav-item:not(:last-child){
+				margin-right: toRem(10);
+			}
+		}
+	}
+	&--fixed{
+		position: fixed;
+		transform: translateY(-100%);
+		box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		animation: header_in .4s ease-in-out forwards;
+		.navbar{
+			@include min-desktop{
+				padding-top: toRem(15);
+				padding-bottom: toRem(15);
+			}
+		}
+	}
+}
+
+/* Fixed Header animation */
+@keyframes header_in{
+	0%{
+		transform: translateY(-100%);
+	}
+	100%{
+		transform: translateY(0);
+	}
+}
+
+/* Off Canvas Navbar Toggler */
+.offCanvasMenuCloser{
+	top: 0;
+	left: 0;
+	transform: translateX(-100%);
+	width: 100%;
+	height: 100%;
+	background: rgba($color: #000000, $alpha: 0.8);
+	z-index: 8;
+	opacity: 0;
+	transition: opacity .4s ease .4s;
+	display: none;
+	&.show{
+		transform: translateX(0);
+		opacity: 1;
+	}
+	@include desktop{
+		display: block;
+	}
+}

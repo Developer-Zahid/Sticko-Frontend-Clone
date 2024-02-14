@@ -1,0 +1,15 @@
+/* Modal Style */
+.modal{
+    &-content{
+        border: 0;
+        box-shadow: 0 0 toRem(15) rgba($color-black, $alpha: 0.1);
+    }
+    &__close{
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: transparent;
+        line-height: 1;
+        padding: 5px;
+    }
+}
